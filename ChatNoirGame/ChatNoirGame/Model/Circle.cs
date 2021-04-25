@@ -12,6 +12,7 @@ namespace ChatNoirGame.Model
   class Circle : INotifyPropertyChanged
   {
     public string Id { get; set; }
+    public double IconSize { get; set; } = 25;
     public string Id2 { get; set; }
     public Tuple<int, int> Coordinates { get; set; }
     public int number { get; set; } = 0;
@@ -26,7 +27,7 @@ namespace ChatNoirGame.Model
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Number"));
       }
     }
-    public double Size { get; set; } = 50;
+    public double Size { get; set; } = (SystemParameters.WorkArea.Height) / 13.5;
 
     private string icon = @"pack://application:,,,/ChatNoirGame;component/Resources/";
 

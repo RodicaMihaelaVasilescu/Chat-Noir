@@ -47,6 +47,8 @@ namespace ChatNoirGame.ViewModel
 
     public void LoadData()
     {
+      EdgeCircles.Clear();
+      SelectedCircles.Clear();
       Board = new ObservableCollection<ObservableCollection<Circle>>();
       int id = 0;
       for (int i = 0; i < 11; i++)
@@ -95,6 +97,7 @@ namespace ChatNoirGame.ViewModel
       }
       if (Cat.Coordinates.Item1 == 0 || Cat.Coordinates.Item1 == 10 || Cat.Coordinates.Item2 == 0 || Cat.Coordinates.Item2 == 10)
       {
+        Cat.Icon = null;
         return;
       }
       circle.IsClicked = true;
@@ -136,11 +139,16 @@ namespace ChatNoirGame.ViewModel
 
         }
 
+        Cat.Icon = @"pack://application:,,,/ChatNoirGame;component/Resources/cat_left.png";
         return;
       }
+
       int minNumber = EdgeCircles.Min(c => c.Number);
       var listMinCircle = EdgeCircles.Where(c => c.Number == minNumber);
-      var minCircle = listMinCircle.FirstOrDefault();
+      var minCircle = listMinCircle.FirstOrDefault(c => c.Coordinates.Item1 == 0 || c.Coordinates.Item1 == 10 ||
+            c.Coordinates.Item2 == 0 || c.Coordinates.Item2 == 10);
+      if (minCircle == null)
+        minCircle = listMinCircle.FirstOrDefault();
 
       if (minNumber != -1 && minCircle != null)
       {
